@@ -29,8 +29,15 @@ Example YAML file:
 
 ```yaml
 statuspage:
+  # title of the status page (optional, default: "Status")
   title: NIPE-SYSTEMS – Status
+  # token for refreshes (required), generate with:
+  #   head -c 1000 /dev/urandom | sha512sum | cut -c 1-64
   token: 395194575aaad69204a1298c4f838755679888e9b502285f8b5774067863b5fd
+  # interval how long an item is treated operational (optional, default: 600)
+  interval: 600
+  # A group has a name and holds several items. An item has a name and an ID.
+  # It may be up or down and can be refreshed. IDs and names can be chosen freely.
   groups:
     SomeGroup:
       - name: HTTP/HTTPS
@@ -39,6 +46,7 @@ statuspage:
         id: dns
       - name: SMTP/IMAP
         id: mail
+        interval: 60 # it is possible to override the global interval
     "Group #2":
       - name: HTTP/HTTPS
         id: http
