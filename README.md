@@ -1,4 +1,4 @@
-# statuspage - A lightweight and simple statuspage implementation
+# statuspage – A lightweight and simple statuspage implementation
 
 ## Concept
 
@@ -20,6 +20,42 @@ statuspage:
   token: <token>
   ...
 ```
+
+## Installation & Usage
+
+1. Install packages via `pip install -r requirements.txt` (you may want to use a virtual environment)
+2. Run the following command:
+
+```bash
+python server.py config.yml
+======== Running on http://0.0.0.0:8080 ========
+(Press CTRL+C to quit)
+```
+
+3. Then head over to `http://localhost:8080` in your browser.
+
+Or use docker:
+
+## Installation with Docker
+
+### Build image
+
+```bash
+docker build -t statuspage .
+```
+
+### Run container
+
+For example:
+
+```bash
+docker run --detach --restart=always --name statuspage \
+    -v /root/statuspage/config.yml:/app/config.yml:ro \
+    -e "TZ=Europe/Berlin" \
+    -p 8080:8080 statuspage
+```
+
+Change the path to the `config.yml` and correct the timezone (the server displays the current time on the status page which might be wrong if the timezone is incorrect).
 
 ## `config.yml`
 
