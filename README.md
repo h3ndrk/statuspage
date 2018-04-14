@@ -1,5 +1,7 @@
 # statuspage – A lightweight and simple statuspage implementation
 
+![Screenshot of statuspage](https://raw.githubusercontent.com/NIPE-SYSTEMS/statuspage/master/screenshot.png)
+
 ## Concept
 
 All items defined in the `config.yml` must be refreshed periodically. If this doesn't happen the statuspage assumes the service is down.
