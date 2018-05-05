@@ -20,6 +20,8 @@ class Config:
 	def interval(self): return self.yaml.get("interval", 600)
 	@property
 	def groups(self): return self.yaml["groups"]
+	@property
+	def refresh_interval(self): return self.yaml.get("refresh_interval", 120)
 
 class Item:
 	def __init__(self, config, item):
@@ -57,6 +59,7 @@ class Statuspage:
 		self.config = Config()
 		self.title = self.config.title
 		self.token = self.config.token
+		self.refresh_interval = self.config.refresh_interval
 		self.groups = [ Group(self.config, name, items) for name, items in self.config.groups.items() ]
 		self.app = aiohttp.web.Application()
 		self.app.router.add_get("/refresh/{item_id}", self.handle_refresh)
@@ -72,7 +75,8 @@ class Statuspage:
 			"title": self.title,
 			"groups": self.groups,
 			"issues": sum(self.down_amount()) > 0,
-			"current_time": datetime.datetime.now().strftime("%c")
+			"current_time": datetime.datetime.now().strftime("%c"),
+			"refresh_interval": self.refresh_interval
 		}
 	
 	async def handle_refresh(self, request):

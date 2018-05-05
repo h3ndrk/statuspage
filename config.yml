@@ -6,6 +6,8 @@ statuspage:
   token: 395194575aaad69204a1298c4f838755679888e9b502285f8b5774067863b5fd
   # interval how long an item is treated operational (optional, default: 600)
   interval: 600
+  # interval how often the status page should refresh (optional, default: 120)
+  refresh_interval: 120
   # A group has a name and holds several items. An item has a name and an ID.
   # It may be up or down and can be refreshed. IDs and names can be chosen freely.
   groups:
