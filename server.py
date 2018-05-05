@@ -63,11 +63,19 @@ class Statuspage:
 		self.groups = [ Group(self.config, name, items) for name, items in self.config.groups.items() ]
 		self.app = aiohttp.web.Application()
 		self.app.router.add_get("/refresh/{item_id}", self.handle_refresh)
+		self.app.router.add_get("/down.png", self.handle_down_png)
+		self.app.router.add_get("/up.png", self.handle_up_png)
 		self.app.router.add_get("/", self.handle_main)
 	
 	def run(self):
 		aiohttp_jinja2.setup(self.app, loader=jinja2.FileSystemLoader("."))
 		aiohttp.web.run_app(self.app)
+	
+	async def handle_down_png(self, request):
+		return aiohttp.web.FileResponse("down.png")
+	
+	async def handle_up_png(self, request):
+		return aiohttp.web.FileResponse("up.png")
 	
 	@aiohttp_jinja2.template("template.html")
 	async def handle_main(self, request):
